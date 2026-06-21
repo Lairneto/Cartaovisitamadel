@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lair Neto - Gerente de Compras | MADEL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141414;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card-container {
+            background-color: #1e1e1e;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2b2b2b;
+            position: relative;
+        }
+
+        /* Seletor de Idioma */
+        .lang-selector {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .lang-btn {
+            background-color: #262626;
+            color: #ffffff;
+            border: 1px solid #363636;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: #e31c1c;
+            border-color: #e31c1c;
+        }
+
+        /* Container Logomarca MADEL */
+        .company-logo-container {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff; 
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .company-logo-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 45px; 
+            display: block;
+        }
+
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: #2b2b2b;
+            border-radius: 50%;
+            margin: 18px auto 16px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e31c1c; 
+        }
+
+        .avatar-placeholder span {
+            font-size: 28px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .title-role {
+            font-size: 13px;
+            color: #cccccc;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: #b3b3b3;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        /* Caixa de Informações */
+        .company-info-box {
+            background-color: #171717;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 24px;
+            border: 1px solid #262626;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .info-item {
+            color: #a6a6a6;
+            margin-bottom: 6px;
+        }
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item strong {
+            color: #ffffff;
+        }
+
+        .info-item a {
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px dashed #e31c1c;
+        }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888888;
+            letter-spacing: 1.5px;
+            text-align: left;
+            margin: 18px 0 8px 4px;
+            font-weight: bold;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Botões */
+        .btn-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #262626;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid #363636;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            background-color: #e31c1c; 
+            color: #ffffff;
+            transform: translateY(-2px);
+            border-color: #e31c1c;
+            box-shadow: 0 4px 12px rgba(227, 28, 28, 0.3);
+        }
+
+        .btn-accent {
+            background-color: #e31c1c;
+            border-color: #e31c1c;
+        }
+        
+        .btn-accent:hover {
+            background-color: #ffffff;
+            color: #e31c1c;
+            border-color: #ffffff;
+        }
+
+        /* Estilo Botão WeChat */
+        .btn-wechat {
+            background-color: #07c160;
+            border-color: #07c160;
+        }
+        .btn-wechat:hover {
+            background-color: #ffffff;
+            color: #07c160;
+            border-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+        }
+
+        /* Janela Modal do QR Code (Escondida por padrão) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .modal-content p {
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .close-btn {
+            background-color: #e31c1c;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 11px;
+            color: #555555;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        
+        <!-- Seleção de Idiomas -->
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="switchLang('pt')">PT</button>
+            <button class="lang-btn" onclick="switchLang('en')">EN</button>
+            <button class="lang-btn" onclick="switchLang('zh')">中文</button>
+        </div>
+        
+        <!-- Logotipo Oficial MADEL -->
+        <div class="company-logo-container">
+            <img src="https://docs.google.com/uc?export=view&id=1PE1UX5Dr_p_w6mXDg0d6WxBgX7kjhX2d" alt="Logomarca MADEL" class="company-logo-img">
+        </div>
+
+        <!-- Iniciais -->
+        <div class="avatar-placeholder">
+            <span>LN</span>
+        </div>
+
+        <!-- Informações Profissionais -->
+        <h1 id="user-name">Lair Neto</h1>
+        <div id="user-role" class="title-role">Gerente de Compras</div>
+        
+        <p id="user-bio" class="bio">
+            Desenvolvimento de portfólio de produtos alto padrão e negociações estratégicas para redes de varejo.
+        </p>
+
+        <!-- Dados Institucionais -->
+        <div class="company-info-box">
+            <div class="info-item"><strong id="lbl-company">Empresa:</strong> MADEL - Portas, Pisos e Painéis</div>
+            <div class="info-item"><strong>Website:</strong> <a href="https://www.madel.com.br" target="_blank">www.madel.com.br</a></div>
+            <div class="info-item"><strong id="lbl-coverage">Atendimento:</strong> <span id="val-coverage">Nacional e Internacional</span></div>
+        </div>
+
+        <!-- CONEXÃO DIRETA -->
+        <div id="sec-direct" class="section-label">Contatos Diretos</div>
+        <div class="links-container">
+            <a id="btn-wa" href="https://wa.me/5511950303470" target="_blank" class="btn-link">
+                Conectar via WhatsApp
+            </a>
+            
+            <a id="btn-mail" href="mailto:lair@madel.com.br" class="btn-link">
+                Enviar E-mail Corporativo
+            </a>
+
+            <a id="btn-vcard" href="seu-link-vcard.vcf" class="btn-link btn-accent">
+                📥 Incluir na Agenda (Salvar Contato)
+            </a>
+        </div>
+
+        <!-- NEGÓCIOS INTERNACIONAIS -->
+        <div id="sec-intl" class="section-label">International Procurement</div>
+        <div class="links-container">
+            <button id="btn-wechat" onclick="openModal()" class="btn-link btn-wechat">
+                🟢 WeChat ID: LairNeto_BrasilSP
+            </button>
+        </div>
+
+        <!-- CORPORATIVO & CADASTROS -->
+        <div id="sec-partners" class="section-label">Parcerias & Cadastros</div>
+        <div class="links-container">
+            <a id="btn-supplier" href="https://www.madel.com.br/cadastro-fornecedores" target="_blank" class="btn-link">
+                📋 Seja um Fornecedor (Cadastro)
+            </a>
+            
+            <a id="btn-linkedin" href="https://linkedin.com/in/lairneto" target="_blank" class="btn-link">
+                LinkedIn Profissional
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 MADEL & LAIR NETO
+        </div>
+    </div>
+
+    <!-- JANELA MODAL DO QR CODE WECHAT -->
+    <div id="qr-modal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <!-- Pega o arquivo de imagem salvo na pasta -->
+            <img src="wechat-qr.png" alt="WeChat QR Code Lair Neto">
+            <p>ID: LairNeto_BrasilSP</p>
+            <button class="close-btn" onclick="closeModal()">Fechar / Close</button>
+        </div>
+    </div>
+
+    <!-- Script de Idiomas e Janela Modal -->
+    <script>
+        const translations = {
+            pt: {
+                role: "Gerente de Compras",
+                bio: "Desenvolvimento de portfólio de produtos alto padrão e negociações estratégicas para redes de varejo.",
+                company: "Empresa:",
+                coverage: "Atendimento:",
+                coverageVal: "Nacional e Internacional",
+                secDirect: "Contatos Diretos",
+                secIntl: "International Procurement",
+                secPartners: "Parcerias & Cadastros",
+                btnWa: "Conectar via WhatsApp",
+                btnMail: "Enviar E-mail Corporativo",
+                btnVcard: "📥 Incluir na Agenda (Salvar Contato)",
+                btnWechat: "🟢 WeChat ID: LairNeto_BrasilSP",
+                btnSupplier: "📋 Seja um Fornecedor (Cadastro)",
+                btnLinkedin: "LinkedIn Profissional"
+            },
+            en: {
+                role: "Procurement Manager",
+                bio: "High-end product portfolio development and strategic negotiations for retail chains.",
+                company: "Company:",
+                coverage: "Coverage:",
+                coverageVal: "National and International",
+                secDirect: "Direct Contact",
+                secIntl: "International Procurement",
+                secPartners: "Partnerships & Onboarding",
+                btnWa: "Connect via WhatsApp",
+                btnMail: "Send Corporate Email",
+                btnVcard: "📥 Save to Contacts",
+                btnWechat: "🟢 WeChat ID: LairNeto_BrasilSP",
+                btnSupplier: "📋 Become a Supplier",
+                btnLinkedin: "Professional LinkedIn"
+            },
+            zh: {
+                role: "采购经理",
+                bio: "针对零售连锁店的高端产品组合开发与战略商务谈判。",
+                company: "公司:",
+                coverage: "服务范围:",
+                coverageVal: "国内与国际市场",
+                secDirect: "直接联系方式",
+                secIntl: "国际采购与亚洲市场",
+                secPartners: "合作伙伴与供应商登记",
+                btnWa: "通过 WhatsApp 联系",
+                btnMail: "发送企业电子邮箱",
+                btnVcard: "📥 保存到通讯录",
+                btnWechat: "🟢 微信号: LairNeto_BrasilSP",
+                btnSupplier: "📋 成为供应商 (登记)",
+                btnLinkedin: "领英 (LinkedIn) 职业档案"
+            }
+        };
+
+        function switchLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('user-role').innerText = translations[lang].role;
+            document.getElementById('user-bio').innerText = translations[lang].bio;
+            document.getElementById('lbl-company').innerText = translations[lang].company;
+            document.getElementById('lbl-coverage').innerText = translations[lang].coverage;
+            document.getElementById('val-coverage').innerText = translations[lang].coverageVal;
+            document.getElementById('sec-direct').innerText = translations[lang].secDirect;
+            document.getElementById('sec-intl').innerText = translations[lang].secIntl;
+            document.getElementById('sec-partners').innerText = translations[lang].secPartners;
+            document.getElementById('btn-wa').innerText = translations[lang].btnWa;
+            document.getElementById('btn-mail').innerText = translations[lang].btnMail;
+            document.getElementById('btn-vcard').innerText = translations[lang].btnVcard;
+            document.getElementById('btn-wechat').innerText = translations[lang].btnWechat;
+            document.getElementById('btn-supplier').innerText = translations[lang].btnSupplier;
+            document.getElementById('btn-linkedin').innerText = translations[lang].btnLinkedin;
+        }
+
+        // Funções para controle da Janela do QR Code
+        function openModal() {
+            document.getElementById('qr-modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('qr-modal').style.display = 'none';
+        }
+        function closeModalOutside(e) {
+            if (e.target.id === 'qr-modal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
