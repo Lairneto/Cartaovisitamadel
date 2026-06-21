@@ -78,22 +78,25 @@
             display: block;
         }
 
-        .avatar-placeholder {
-            width: 80px;
-            height: 80px;
-            background-color: #2b2b2b;
-            border-radius: 50%;
+        /* Container da Foto de Perfil Redonda */
+        .avatar-container {
+            width: 90px;
+            height: 90px;
             margin: 18px auto 16px auto;
+            border-radius: 50%;
+            border: 2px solid #e31c1c; 
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #e31c1c; 
+            background-color: #2b2b2b;
         }
 
-        .avatar-placeholder span {
-            font-size: 28px;
-            color: #ffffff;
-            font-weight: bold;
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         h1 {
@@ -202,7 +205,7 @@
             border-color: #ffffff;
         }
 
-        /* Estilo Botão WeChat */
+        /* Botão WeChat */
         .btn-wechat {
             background-color: #07c160;
             border-color: #07c160;
@@ -214,7 +217,7 @@
             box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
         }
 
-        /* Janela Modal do QR Code (Escondida por padrão) */
+        /* Janela Modal do QR Code WeChat */
         .modal {
             display: none;
             position: fixed;
@@ -285,14 +288,14 @@
             <button class="lang-btn" onclick="switchLang('zh')">中文</button>
         </div>
         
-        <!-- Logotipo Oficial MADEL -->
+        <!-- Logotipo Oficial MADEL local -->
         <div class="company-logo-container">
-            <img src="https://docs.google.com/uc?export=view&id=1PE1UX5Dr_p_w6mXDg0d6WxBgX7kjhX2d" alt="Logomarca MADEL" class="company-logo-img">
+            <img src="logo-madel.png" alt="Logomarca MADEL" class="company-logo-img">
         </div>
 
-        <!-- Iniciais -->
-        <div class="avatar-placeholder">
-            <span>LN</span>
+        <!-- Foto de Perfil do Lair -->
+        <div class="avatar-container">
+            <img src="foto-perfil.jpg" alt="Lair Neto" class="avatar-img">
         </div>
 
         <!-- Informações Profissionais -->
@@ -354,7 +357,6 @@
     <!-- JANELA MODAL DO QR CODE WECHAT -->
     <div id="qr-modal" class="modal" onclick="closeModalOutside(event)">
         <div class="modal-content">
-            <!-- Pega o arquivo de imagem salvo na pasta -->
             <img src="wechat-qr.png" alt="WeChat QR Code Lair Neto">
             <p>ID: LairNeto_BrasilSP</p>
             <button class="close-btn" onclick="closeModal()">Fechar / Close</button>
@@ -403,7 +405,7 @@
                 coverage: "服务范围:",
                 coverageVal: "国内与国际市场",
                 secDirect: "直接联系方式",
-                secIntl: "国际采购与亚洲市场",
+                secIntl: "国际采购与亚洲 market",
                 secPartners: "合作伙伴与供应商登记",
                 btnWa: "通过 WhatsApp 联系",
                 btnMail: "发送企业电子邮箱",
@@ -434,7 +436,6 @@
             document.getElementById('btn-linkedin').innerText = translations[lang].btnLinkedin;
         }
 
-        // Funções para controle da Janela do QR Code
         function openModal() {
             document.getElementById('qr-modal').style.display = 'flex';
         }
